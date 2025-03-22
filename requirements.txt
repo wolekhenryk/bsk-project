@@ -1,0 +1,5 @@
+pywin32~=310
+pycryptodome~=3.22.0
+cryptography~=44.0.2
+PyPDF2
+endesive
