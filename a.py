@@ -5,13 +5,9 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, simpledialog, scrolledtext
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
-from cryptography import x509
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 import win32api
-
-PUBLIC_KEY_PATH = os.path.expanduser("~/rsa_public_key.pem")
-CERTIFICATE_PATH = os.path.expanduser("~/rsa_certificate.pem")
 
 
 class SignerApp(tk.Tk):
@@ -70,18 +66,6 @@ class SignerApp(tk.Tk):
             self.log_message(f"❌ Failed to decrypt or load private key: {e}")
             return
 
-        if not os.path.exists(CERTIFICATE_PATH):
-            self.log_message(f"❌ Local certificate not found: {CERTIFICATE_PATH}")
-            return
-
-        try:
-            with open(CERTIFICATE_PATH, "rb") as f:
-                cert_data = f.read()
-            self.cert = x509.load_pem_x509_certificate(cert_data)
-        except Exception as e:
-            self.log_message(f"❌ Failed to load certificate: {e}")
-            return
-
         self.after(0, self.prompt_for_pdf)
 
     def prompt_for_pdf(self):
@@ -93,7 +77,7 @@ class SignerApp(tk.Tk):
         with open(file_path, "rb") as f:
             pdf_data = f.read()
 
-        self.log_message("✍️ Signing PDF using RSA key and X.509 certificate...")
+        self.log_message("✍️ Signing PDF using RSA private key...")
 
         try:
             digest = SHA256.new(pdf_data).digest()

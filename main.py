@@ -2,24 +2,18 @@ import os
 import time
 import threading
 import tkinter as tk
-from tkinter import simpledialog, messagebox, scrolledtext
+from tkinter import simpledialog, messagebox, scrolledtext, filedialog
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 from Crypto.Hash import SHA256
-from cryptography.hazmat.primitives import serialization, hashes
+from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography import x509
-from cryptography.x509.oid import NameOID
-from datetime import datetime, timedelta
 import win32api
-
-PUBLIC_KEY_PATH = os.path.expanduser("~/rsa_public_key.pem")
-CERTIFICATE_PATH = os.path.expanduser("~/rsa_certificate.pem")
 
 class USBKeyApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("🔐 RSA USB Key Generator")
+        self.title("RSA USB Key Generator")
         self.geometry("600x400")
 
         self.log = scrolledtext.ScrolledText(self, wrap=tk.WORD)
@@ -46,49 +40,31 @@ class USBKeyApp(tk.Tk):
         cipher = AES.new(key, AES.MODE_CFB, iv)
         return iv + cipher.encrypt(private_key_bytes)
 
-    def generate_self_signed_certificate(self, private_key):
-        subject = issuer = x509.Name([
-            x509.NameAttribute(NameOID.COUNTRY_NAME, u"PL"),
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, u"Test Organization"),
-            x509.NameAttribute(NameOID.COMMON_NAME, u"User A"),
-        ])
-
-        cert = x509.CertificateBuilder().subject_name(
-            subject
-        ).issuer_name(
-            issuer
-        ).public_key(
-            private_key.public_key()
-        ).serial_number(
-            x509.random_serial_number()
-        ).not_valid_before(
-            datetime.utcnow() - timedelta(days=1)
-        ).not_valid_after(
-            datetime.utcnow() + timedelta(days=365)
-        ).add_extension(
-            x509.BasicConstraints(ca=False, path_length=None), critical=True
-        ).sign(private_key, hashes.SHA256())
-        return cert
-
-    def save_certificate_and_public_key(self, private_key):
+    def save_public_key(self, private_key):
         public_key = private_key.public_key()
         pub_bytes = public_key.public_bytes(
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         )
-        cert = self.generate_self_signed_certificate(private_key)
-        cert_bytes = cert.public_bytes(serialization.Encoding.PEM)
 
-        with open(PUBLIC_KEY_PATH, "wb") as f:
+        pub_path = filedialog.asksaveasfilename(
+            defaultextension=".pem",
+            filetypes=[("PEM files", "*.pem")],
+            title="Save Public Key As"
+        )
+
+        if not pub_path:
+            self.log_message("❌ Public key save cancelled.")
+            return None
+
+        with open(pub_path, "wb") as f:
             f.write(pub_bytes)
-        with open(CERTIFICATE_PATH, "wb") as f:
-            f.write(cert_bytes)
 
-        self.log_message(f"✅ Public key saved to: {PUBLIC_KEY_PATH}")
-        self.log_message(f"✅ Certificate saved to: {CERTIFICATE_PATH}")
+        self.log_message(f"✅ Public key saved to: {pub_path}")
+        return pub_path
 
     def handle_usb_insertion(self, drive_letter):
-        self.log_message(f"✅ Pendrive detected at {drive_letter}")
+        self.log_message(f"Pendrive detected at {drive_letter}")
 
         pin = None
         while True:
@@ -103,7 +79,9 @@ class USBKeyApp(tk.Tk):
         self.log_message("🔐 Generating 4096-bit RSA key pair...")
         private_key = rsa.generate_private_key(public_exponent=65537, key_size=4096)
 
-        self.save_certificate_and_public_key(private_key)
+        if self.save_public_key(private_key) is None:
+            self.log_message("❌ Public key was not saved. Aborting.")
+            return
 
         private_bytes = private_key.private_bytes(
             encoding=serialization.Encoding.PEM,

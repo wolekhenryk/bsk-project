@@ -7,10 +7,15 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import serialization
 
-PUBLIC_KEY_PATH = os.path.expanduser("~/rsa_public_key.pem")
+def load_public_key_from_dialog():
+    pub_key_path = filedialog.askopenfilename(
+        title="Select Public Key File",
+        filetypes=[("PEM files", "*.pem")]
+    )
+    if not pub_key_path:
+        return None
 
-def load_public_key():
-    with open(PUBLIC_KEY_PATH, "rb") as f:
+    with open(pub_key_path, "rb") as f:
         pub_key_data = f.read()
     return serialization.load_pem_public_key(pub_key_data)
 
@@ -23,6 +28,11 @@ def verify_signature_gui():
         messagebox.showerror("Error", "Signed file not found.")
         return
 
+    public_key = load_public_key_from_dialog()
+    if not public_key:
+        messagebox.showerror("Error", "Public key not selected.")
+        return
+
     with open(signed_file_path, "rb") as f:
         data = f.read()
 
@@ -32,7 +42,6 @@ def verify_signature_gui():
     digest = SHA256.new(original_pdf).digest()
 
     try:
-        public_key = load_public_key()
         public_key.verify(
             signature,
             digest,
