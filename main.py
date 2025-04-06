@@ -19,7 +19,7 @@ class USBKeyApp(tk.Tk):
         self.log = scrolledtext.ScrolledText(self, wrap=tk.WORD)
         self.log.pack(expand=True, fill=tk.BOTH)
 
-        self.log_message("🔍 Waiting for USB drive...")
+        self.log_message("Waiting for USB drive...")
         self.previous_drives = self.get_drive_letters()
 
         self.poll_usb_thread = threading.Thread(target=self.poll_for_usb, daemon=True)
@@ -54,13 +54,13 @@ class USBKeyApp(tk.Tk):
         )
 
         if not pub_path:
-            self.log_message("❌ Public key save cancelled.")
+            self.log_message("Public key save cancelled.")
             return None
 
         with open(pub_path, "wb") as f:
             f.write(pub_bytes)
 
-        self.log_message(f"✅ Public key saved to: {pub_path}")
+        self.log_message(f"Public key saved to: {pub_path}")
         return pub_path
 
     def handle_usb_insertion(self, drive_letter):
@@ -70,17 +70,17 @@ class USBKeyApp(tk.Tk):
         while True:
             pin = simpledialog.askstring("PIN Entry", "Enter a 4-digit PIN:", parent=self, show="*")
             if pin is None:
-                self.log_message("❌ Key generation cancelled by user.")
+                self.log_message("Key generation cancelled by user.")
                 return
             if pin.isdigit() and len(pin) == 4:
                 break
             messagebox.showerror("Invalid PIN", "PIN must be 4 digits.")
 
-        self.log_message("🔐 Generating 4096-bit RSA key pair...")
+        self.log_message("Generating 4096-bit RSA key pair...")
         private_key = rsa.generate_private_key(public_exponent=65537, key_size=4096)
 
         if self.save_public_key(private_key) is None:
-            self.log_message("❌ Public key was not saved. Aborting.")
+            self.log_message("Public key was not saved. Aborting.")
             return
 
         private_bytes = private_key.private_bytes(
@@ -95,9 +95,9 @@ class USBKeyApp(tk.Tk):
             encrypted_path = os.path.join(drive_letter, "private_encrypted.pem")
             with open(encrypted_path, "wb") as f:
                 f.write(encrypted)
-            self.log_message(f"✅ Encrypted private key saved to USB: {encrypted_path}")
+            self.log_message(f"Encrypted private key saved to USB: {encrypted_path}")
         except Exception as e:
-            self.log_message(f"❌ Failed to save encrypted key: {e}")
+            self.log_message(f"Failed to save encrypted key: {e}")
 
     def poll_for_usb(self):
         while True:

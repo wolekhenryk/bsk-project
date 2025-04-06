@@ -13,13 +13,13 @@ import win32api
 class SignerApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("✍️ PDF Signer")
+        self.title("PDF Signer")
         self.geometry("600x400")
 
         self.log = scrolledtext.ScrolledText(self, wrap=tk.WORD)
         self.log.pack(expand=True, fill=tk.BOTH)
 
-        self.log_message("🔌 Waiting for pendrive with 'private_encrypted.pem'...")
+        self.log_message("Waiting for pendrive with 'private_encrypted.pem'...")
 
         threading.Thread(target=self.wait_for_pendrive_with_key, daemon=True).start()
 
@@ -34,7 +34,7 @@ class SignerApp(tk.Tk):
             for drive in drives:
                 if os.path.exists(os.path.join(drive, "private_encrypted.pem")):
                     self.drive = drive
-                    self.log_message(f"✅ Pendrive detected at {drive}")
+                    self.log_message(f"Pendrive detected at {drive}")
                     self.after(0, self.decrypt_flow)
                     return
             time.sleep(2)
@@ -51,19 +51,19 @@ class SignerApp(tk.Tk):
             with open(os.path.join(self.drive, "private_encrypted.pem"), "rb") as f:
                 encrypted_data = f.read()
         except Exception as e:
-            self.log_message(f"❌ Could not read encrypted key: {e}")
+            self.log_message(f"Could not read encrypted key: {e}")
             return
 
         pin = simpledialog.askstring("PIN Entry", "Enter your 4-digit PIN:", parent=self, show="*")
         if not pin:
-            self.log_message("❌ PIN entry cancelled.")
+            self.log_message("PIN entry cancelled.")
             return
 
         try:
             decrypted_key = self.decrypt_private_key(encrypted_data, pin)
             self.private_key = serialization.load_pem_private_key(decrypted_key, password=None)
         except Exception as e:
-            self.log_message(f"❌ Failed to decrypt or load private key: {e}")
+            self.log_message(f"Failed to decrypt or load private key: {e}")
             return
 
         self.after(0, self.prompt_for_pdf)
@@ -71,13 +71,13 @@ class SignerApp(tk.Tk):
     def prompt_for_pdf(self):
         file_path = filedialog.askopenfilename(title="Select PDF file to sign", filetypes=[("PDF files", "*.pdf")])
         if not file_path:
-            self.log_message("❌ No file selected.")
+            self.log_message("No file selected.")
             return
 
         with open(file_path, "rb") as f:
             pdf_data = f.read()
 
-        self.log_message("✍️ Signing PDF using RSA private key...")
+        self.log_message("Signing PDF using RSA private key...")
 
         try:
             digest = SHA256.new(pdf_data).digest()
@@ -92,10 +92,10 @@ class SignerApp(tk.Tk):
             with open(output_pdf, "wb") as f:
                 f.write(pdf_data + signature)
 
-            self.log_message(f"✅ PDF signed and saved as: {output_pdf}")
+            self.log_message(f"PDF signed and saved as: {output_pdf}")
             messagebox.showinfo("Success", f"Signed PDF saved as:\n{output_pdf}")
         except Exception as e:
-            self.log_message(f"❌ Signing failed: {e}")
+            self.log_message(f"Signing failed: {e}")
 
 
 if __name__ == "__main__":
