@@ -1,0 +1,163 @@
+\doxysection{a.\+Signer\+App Class Reference}
+\hypertarget{classa_1_1_signer_app}{}\label{classa_1_1_signer_app}\index{a.SignerApp@{a.SignerApp}}
+
+
+Aplikacja GUI do podpisywania plików PDF za pomocą klucza RSA.  
+
+
+Inheritance diagram for a.\+Signer\+App\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classa_1_1_signer_app}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a31738290452ad4ac33b2a262d2ec0539}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Konstruktor klasy \doxylink{classa_1_1_signer_app}{Signer\+App}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a96842d45d0d9acb23ff5479527d058f1}{log\+\_\+message}} (self, msg)
+\begin{DoxyCompactList}\small\item\em Loguje wiadomość do okna oraz do konsoli. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a039e378f45aa80d4858679d3e1ea4127}{wait\+\_\+for\+\_\+pendrive\+\_\+with\+\_\+key}} (self)
+\begin{DoxyCompactList}\small\item\em Czeka na podłączenie pendrive\textquotesingle{}a z zaszyfrowanym kluczem prywatnym. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a6b5cfe2d1204bb97106c29c8e63a00b5}{decrypt\+\_\+private\+\_\+key}} (self, encrypted\+\_\+data, pin)
+\begin{DoxyCompactList}\small\item\em Odszyfrowuje klucz prywatny RSA z użyciem PIN-\/u użytkownika. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a5044a6d3e2a585c87257f496248ac438}{decrypt\+\_\+flow}} (self)
+\begin{DoxyCompactList}\small\item\em Proces odszyfrowania klucza prywatnego i podpisywania pliku PDF. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a4704769be29d633a5440602d5785c0a0}{prompt\+\_\+for\+\_\+pdf}} (self)
+\begin{DoxyCompactList}\small\item\em Otwiera okno dialogowe do wyboru pliku PDF do podpisania. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a730a6e1d7d390569c65bbf1fd859e5c2}{log}} = scrolledtext.\+Scrolled\+Text(self, wrap=tk.\+WORD)
+\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a72242587074bff29562a5fc0cf663d08}{drive}} = drive
+\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a24d34f076bf2c60c2bd0f735d7e8f265}{decrypt\+\_\+flow}}
+\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a62c49bf6a5deb9e6ba1ea957169c0b12}{private\+\_\+key}} = serialization.\+load\+\_\+pem\+\_\+private\+\_\+key(decrypted\+\_\+key, password=None)
+\item 
+\mbox{\hyperlink{classa_1_1_signer_app_a311a0b5622c4afc2ead06425439d679c}{prompt\+\_\+for\+\_\+pdf}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Aplikacja GUI do podpisywania plików PDF za pomocą klucza RSA. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classa_1_1_signer_app_a31738290452ad4ac33b2a262d2ec0539}\index{a.SignerApp@{a.SignerApp}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a31738290452ad4ac33b2a262d2ec0539} 
+a.\+Signer\+App.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Konstruktor klasy \doxylink{classa_1_1_signer_app}{Signer\+App}. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classa_1_1_signer_app_a5044a6d3e2a585c87257f496248ac438}\index{a.SignerApp@{a.SignerApp}!decrypt\_flow@{decrypt\_flow}}
+\index{decrypt\_flow@{decrypt\_flow}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{decrypt\_flow()}{decrypt\_flow()}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a5044a6d3e2a585c87257f496248ac438} 
+a.\+Signer\+App.\+decrypt\+\_\+flow (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Proces odszyfrowania klucza prywatnego i podpisywania pliku PDF. 
+
+\Hypertarget{classa_1_1_signer_app_a6b5cfe2d1204bb97106c29c8e63a00b5}\index{a.SignerApp@{a.SignerApp}!decrypt\_private\_key@{decrypt\_private\_key}}
+\index{decrypt\_private\_key@{decrypt\_private\_key}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{decrypt\_private\_key()}{decrypt\_private\_key()}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a6b5cfe2d1204bb97106c29c8e63a00b5} 
+a.\+Signer\+App.\+decrypt\+\_\+private\+\_\+key (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{encrypted\+\_\+data}{, }\item[{}]{pin}{}\end{DoxyParamCaption})}
+
+
+
+Odszyfrowuje klucz prywatny RSA z użyciem PIN-\/u użytkownika. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em encrypted\+\_\+data} & Szyfrowane dane klucza prywatnego. \\
+\hline
+{\em pin} & 4-\/cyfrowy PIN wprowadzony przez użytkownika. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Odszyfrowane bajty klucza prywatnego. 
+\end{DoxyReturn}
+\Hypertarget{classa_1_1_signer_app_a96842d45d0d9acb23ff5479527d058f1}\index{a.SignerApp@{a.SignerApp}!log\_message@{log\_message}}
+\index{log\_message@{log\_message}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{log\_message()}{log\_message()}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a96842d45d0d9acb23ff5479527d058f1} 
+a.\+Signer\+App.\+log\+\_\+message (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{msg}{}\end{DoxyParamCaption})}
+
+
+
+Loguje wiadomość do okna oraz do konsoli. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Wiadomość do wyświetlenia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classa_1_1_signer_app_a4704769be29d633a5440602d5785c0a0}\index{a.SignerApp@{a.SignerApp}!prompt\_for\_pdf@{prompt\_for\_pdf}}
+\index{prompt\_for\_pdf@{prompt\_for\_pdf}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{prompt\_for\_pdf()}{prompt\_for\_pdf()}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a4704769be29d633a5440602d5785c0a0} 
+a.\+Signer\+App.\+prompt\+\_\+for\+\_\+pdf (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Otwiera okno dialogowe do wyboru pliku PDF do podpisania. 
+
+\Hypertarget{classa_1_1_signer_app_a039e378f45aa80d4858679d3e1ea4127}\index{a.SignerApp@{a.SignerApp}!wait\_for\_pendrive\_with\_key@{wait\_for\_pendrive\_with\_key}}
+\index{wait\_for\_pendrive\_with\_key@{wait\_for\_pendrive\_with\_key}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{wait\_for\_pendrive\_with\_key()}{wait\_for\_pendrive\_with\_key()}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a039e378f45aa80d4858679d3e1ea4127} 
+a.\+Signer\+App.\+wait\+\_\+for\+\_\+pendrive\+\_\+with\+\_\+key (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Czeka na podłączenie pendrive\textquotesingle{}a z zaszyfrowanym kluczem prywatnym. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classa_1_1_signer_app_a24d34f076bf2c60c2bd0f735d7e8f265}\index{a.SignerApp@{a.SignerApp}!decrypt\_flow@{decrypt\_flow}}
+\index{decrypt\_flow@{decrypt\_flow}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{decrypt\_flow}{decrypt\_flow}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a24d34f076bf2c60c2bd0f735d7e8f265} 
+a.\+Signer\+App.\+decrypt\+\_\+flow}
+
+\Hypertarget{classa_1_1_signer_app_a72242587074bff29562a5fc0cf663d08}\index{a.SignerApp@{a.SignerApp}!drive@{drive}}
+\index{drive@{drive}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{drive}{drive}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a72242587074bff29562a5fc0cf663d08} 
+a.\+Signer\+App.\+drive = drive}
+
+\Hypertarget{classa_1_1_signer_app_a730a6e1d7d390569c65bbf1fd859e5c2}\index{a.SignerApp@{a.SignerApp}!log@{log}}
+\index{log@{log}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{log}{log}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a730a6e1d7d390569c65bbf1fd859e5c2} 
+a.\+Signer\+App.\+log = scrolledtext.\+Scrolled\+Text(self, wrap=tk.\+WORD)}
+
+\Hypertarget{classa_1_1_signer_app_a62c49bf6a5deb9e6ba1ea957169c0b12}\index{a.SignerApp@{a.SignerApp}!private\_key@{private\_key}}
+\index{private\_key@{private\_key}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{private\_key}{private\_key}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a62c49bf6a5deb9e6ba1ea957169c0b12} 
+a.\+Signer\+App.\+private\+\_\+key = serialization.\+load\+\_\+pem\+\_\+private\+\_\+key(decrypted\+\_\+key, password=None)}
+
+\Hypertarget{classa_1_1_signer_app_a311a0b5622c4afc2ead06425439d679c}\index{a.SignerApp@{a.SignerApp}!prompt\_for\_pdf@{prompt\_for\_pdf}}
+\index{prompt\_for\_pdf@{prompt\_for\_pdf}!a.SignerApp@{a.SignerApp}}
+\doxysubsubsection{\texorpdfstring{prompt\_for\_pdf}{prompt\_for\_pdf}}
+{\footnotesize\ttfamily \label{classa_1_1_signer_app_a311a0b5622c4afc2ead06425439d679c} 
+a.\+Signer\+App.\+prompt\+\_\+for\+\_\+pdf}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{a_8py}{a.\+py}}\end{DoxyCompactItemize}
