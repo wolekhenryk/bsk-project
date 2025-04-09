@@ -1,0 +1,175 @@
+\doxysection{main.\+USBKey\+App Class Reference}
+\hypertarget{classmain_1_1_u_s_b_key_app}{}\label{classmain_1_1_u_s_b_key_app}\index{main.USBKeyApp@{main.USBKeyApp}}
+
+
+Aplikacja GUI do generowania pary kluczy RSA i zapisywania ich na pendrive.  
+
+
+Inheritance diagram for main.\+USBKey\+App\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classmain_1_1_u_s_b_key_app}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_aa267b82e287bb3d4563207e142233c4d}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Konstruktor klasy \doxylink{classmain_1_1_u_s_b_key_app}{USBKey\+App}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_a62105eb45de8645d1112936fe6571a7b}{log\+\_\+message}} (self, message)
+\begin{DoxyCompactList}\small\item\em Loguje wiadomość do okna oraz do konsoli. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_af5c495b33915cd1c848bb027748ec490}{get\+\_\+drive\+\_\+letters}} (self)
+\begin{DoxyCompactList}\small\item\em Zwraca listę aktualnie podłączonych dysków. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_a7b04d16cb80e31ac9c564df2fdee651a}{encrypt\+\_\+private\+\_\+key}} (self, private\+\_\+key\+\_\+bytes, pin)
+\begin{DoxyCompactList}\small\item\em Szyfruje prywatny klucz RSA za pomocą PIN-\/u użytkownika. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_a6039f73c6af2cff88d7d3996a55f9a2a}{save\+\_\+public\+\_\+key}} (self, private\+\_\+key)
+\begin{DoxyCompactList}\small\item\em Zapisuje publiczny klucz RSA do pliku PEM. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_af7fbbdd62b7bf9d3f57d46dbb9a88c64}{handle\+\_\+usb\+\_\+insertion}} (self, drive\+\_\+letter)
+\begin{DoxyCompactList}\small\item\em Obsługuje włożenie pendrive\textquotesingle{}a i generuje klucz RSA. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_abfbc0e521852f5d1dcd6677031811e32}{poll\+\_\+for\+\_\+usb}} (self)
+\begin{DoxyCompactList}\small\item\em Wątek do monitorowania podłączenia pendrive\textquotesingle{}a. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_a2dd849182f5b5261bb7205acfe2b3335}{log}} = scrolledtext.\+Scrolled\+Text(self, wrap=tk.\+WORD)
+\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_a60ee7108d976a28e33a2e29c0681266e}{previous\+\_\+drives}} = self.\+get\+\_\+drive\+\_\+letters()
+\item 
+\mbox{\hyperlink{classmain_1_1_u_s_b_key_app_af607b85380840830e0d97f908a22eafe}{poll\+\_\+usb\+\_\+thread}} = threading.\+Thread(target=self.\+poll\+\_\+for\+\_\+usb, daemon=True)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Aplikacja GUI do generowania pary kluczy RSA i zapisywania ich na pendrive. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmain_1_1_u_s_b_key_app_aa267b82e287bb3d4563207e142233c4d}\index{main.USBKeyApp@{main.USBKeyApp}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_aa267b82e287bb3d4563207e142233c4d} 
+main.\+USBKey\+App.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Konstruktor klasy \doxylink{classmain_1_1_u_s_b_key_app}{USBKey\+App}. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmain_1_1_u_s_b_key_app_a7b04d16cb80e31ac9c564df2fdee651a}\index{main.USBKeyApp@{main.USBKeyApp}!encrypt\_private\_key@{encrypt\_private\_key}}
+\index{encrypt\_private\_key@{encrypt\_private\_key}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{encrypt\_private\_key()}{encrypt\_private\_key()}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_a7b04d16cb80e31ac9c564df2fdee651a} 
+main.\+USBKey\+App.\+encrypt\+\_\+private\+\_\+key (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{private\+\_\+key\+\_\+bytes}{, }\item[{}]{pin}{}\end{DoxyParamCaption})}
+
+
+
+Szyfruje prywatny klucz RSA za pomocą PIN-\/u użytkownika. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em private\+\_\+key\+\_\+bytes} & Bajty klucza prywatnego w formacie PEM. \\
+\hline
+{\em pin} & 4-\/cyfrowy PIN wprowadzony przez użytkownika. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Szyfrowane bajty klucza prywatnego. 
+\end{DoxyReturn}
+\Hypertarget{classmain_1_1_u_s_b_key_app_af5c495b33915cd1c848bb027748ec490}\index{main.USBKeyApp@{main.USBKeyApp}!get\_drive\_letters@{get\_drive\_letters}}
+\index{get\_drive\_letters@{get\_drive\_letters}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{get\_drive\_letters()}{get\_drive\_letters()}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_af5c495b33915cd1c848bb027748ec490} 
+main.\+USBKey\+App.\+get\+\_\+drive\+\_\+letters (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Zwraca listę aktualnie podłączonych dysków. 
+
+\begin{DoxyReturn}{Returns}
+Zbiór nazw dysków (np. \{\textquotesingle{}C\+:\textbackslash{}\textquotesingle{}, \textquotesingle{}D\+:\textbackslash{}\textquotesingle{}\}). 
+\end{DoxyReturn}
+\Hypertarget{classmain_1_1_u_s_b_key_app_af7fbbdd62b7bf9d3f57d46dbb9a88c64}\index{main.USBKeyApp@{main.USBKeyApp}!handle\_usb\_insertion@{handle\_usb\_insertion}}
+\index{handle\_usb\_insertion@{handle\_usb\_insertion}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{handle\_usb\_insertion()}{handle\_usb\_insertion()}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_af7fbbdd62b7bf9d3f57d46dbb9a88c64} 
+main.\+USBKey\+App.\+handle\+\_\+usb\+\_\+insertion (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{drive\+\_\+letter}{}\end{DoxyParamCaption})}
+
+
+
+Obsługuje włożenie pendrive\textquotesingle{}a i generuje klucz RSA. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em drive\+\_\+letter} & Nazwa dysku, na którym wykryto pendrive\textquotesingle{}a. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classmain_1_1_u_s_b_key_app_a62105eb45de8645d1112936fe6571a7b}\index{main.USBKeyApp@{main.USBKeyApp}!log\_message@{log\_message}}
+\index{log\_message@{log\_message}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{log\_message()}{log\_message()}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_a62105eb45de8645d1112936fe6571a7b} 
+main.\+USBKey\+App.\+log\+\_\+message (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{message}{}\end{DoxyParamCaption})}
+
+
+
+Loguje wiadomość do okna oraz do konsoli. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & Wiadomość do wyświetlenia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classmain_1_1_u_s_b_key_app_abfbc0e521852f5d1dcd6677031811e32}\index{main.USBKeyApp@{main.USBKeyApp}!poll\_for\_usb@{poll\_for\_usb}}
+\index{poll\_for\_usb@{poll\_for\_usb}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{poll\_for\_usb()}{poll\_for\_usb()}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_abfbc0e521852f5d1dcd6677031811e32} 
+main.\+USBKey\+App.\+poll\+\_\+for\+\_\+usb (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Wątek do monitorowania podłączenia pendrive\textquotesingle{}a. 
+
+\Hypertarget{classmain_1_1_u_s_b_key_app_a6039f73c6af2cff88d7d3996a55f9a2a}\index{main.USBKeyApp@{main.USBKeyApp}!save\_public\_key@{save\_public\_key}}
+\index{save\_public\_key@{save\_public\_key}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{save\_public\_key()}{save\_public\_key()}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_a6039f73c6af2cff88d7d3996a55f9a2a} 
+main.\+USBKey\+App.\+save\+\_\+public\+\_\+key (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{private\+\_\+key}{}\end{DoxyParamCaption})}
+
+
+
+Zapisuje publiczny klucz RSA do pliku PEM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em private\+\_\+key} & Klucz prywatny, z którego generowany jest klucz publiczny. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Ścieżka do zapisanego pliku publicznego klucza. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classmain_1_1_u_s_b_key_app_a2dd849182f5b5261bb7205acfe2b3335}\index{main.USBKeyApp@{main.USBKeyApp}!log@{log}}
+\index{log@{log}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{log}{log}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_a2dd849182f5b5261bb7205acfe2b3335} 
+main.\+USBKey\+App.\+log = scrolledtext.\+Scrolled\+Text(self, wrap=tk.\+WORD)}
+
+\Hypertarget{classmain_1_1_u_s_b_key_app_af607b85380840830e0d97f908a22eafe}\index{main.USBKeyApp@{main.USBKeyApp}!poll\_usb\_thread@{poll\_usb\_thread}}
+\index{poll\_usb\_thread@{poll\_usb\_thread}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{poll\_usb\_thread}{poll\_usb\_thread}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_af607b85380840830e0d97f908a22eafe} 
+main.\+USBKey\+App.\+poll\+\_\+usb\+\_\+thread = threading.\+Thread(target=self.\+poll\+\_\+for\+\_\+usb, daemon=True)}
+
+\Hypertarget{classmain_1_1_u_s_b_key_app_a60ee7108d976a28e33a2e29c0681266e}\index{main.USBKeyApp@{main.USBKeyApp}!previous\_drives@{previous\_drives}}
+\index{previous\_drives@{previous\_drives}!main.USBKeyApp@{main.USBKeyApp}}
+\doxysubsubsection{\texorpdfstring{previous\_drives}{previous\_drives}}
+{\footnotesize\ttfamily \label{classmain_1_1_u_s_b_key_app_a60ee7108d976a28e33a2e29c0681266e} 
+main.\+USBKey\+App.\+previous\+\_\+drives = self.\+get\+\_\+drive\+\_\+letters()}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{main_8py}{main.\+py}}\end{DoxyCompactItemize}

@@ -1,3 +1,6 @@
+## @package usb_key_generator
+#  Graficzna aplikacja do generowania kluczy RSA i zapisywania ich na pendrive'ach.
+
 import os
 import time
 import threading
@@ -10,7 +13,10 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 import win32api
 
+## @class USBKeyApp
+#  @brief Aplikacja GUI do generowania pary kluczy RSA i zapisywania ich na pendrive.
 class USBKeyApp(tk.Tk):
+    ## Konstruktor klasy USBKeyApp.
     def __init__(self):
         super().__init__()
         self.title("RSA USB Key Generator")
@@ -25,21 +31,32 @@ class USBKeyApp(tk.Tk):
         self.poll_usb_thread = threading.Thread(target=self.poll_for_usb, daemon=True)
         self.poll_usb_thread.start()
 
+    ## Loguje wiadomość do okna oraz do konsoli.
+    #  @param message Wiadomość do wyświetlenia.
     def log_message(self, message):
         self.log.insert(tk.END, message + "\n")
         self.log.see(tk.END)
         print(message)
 
+    ## Zwraca listę aktualnie podłączonych dysków.
+    #  @return Zbiór nazw dysków (np. {'C:\\', 'D:\\'}).
     def get_drive_letters(self):
         drives = win32api.GetLogicalDriveStrings()
         return set(drives.split('\x00')[:-1])
 
+    ## Szyfruje prywatny klucz RSA za pomocą PIN-u użytkownika.
+    #  @param private_key_bytes Bajty klucza prywatnego w formacie PEM.
+    #  @param pin 4-cyfrowy PIN wprowadzony przez użytkownika.
+    #  @return Szyfrowane bajty klucza prywatnego.
     def encrypt_private_key(self, private_key_bytes, pin):
         iv = get_random_bytes(16)
         key = SHA256.new(pin.encode()).digest()
         cipher = AES.new(key, AES.MODE_CFB, iv)
         return iv + cipher.encrypt(private_key_bytes)
 
+    ## Zapisuje publiczny klucz RSA do pliku PEM.
+    #  @param private_key Klucz prywatny, z którego generowany jest klucz publiczny.
+    #  @return Ścieżka do zapisanego pliku publicznego klucza.
     def save_public_key(self, private_key):
         public_key = private_key.public_key()
         pub_bytes = public_key.public_bytes(
@@ -63,6 +80,8 @@ class USBKeyApp(tk.Tk):
         self.log_message(f"Public key saved to: {pub_path}")
         return pub_path
 
+    ## Obsługuje włożenie pendrive'a i generuje klucz RSA.
+    #  @param drive_letter Nazwa dysku, na którym wykryto pendrive'a.
     def handle_usb_insertion(self, drive_letter):
         self.log_message(f"Pendrive detected at {drive_letter}")
 
@@ -99,6 +118,7 @@ class USBKeyApp(tk.Tk):
         except Exception as e:
             self.log_message(f"Failed to save encrypted key: {e}")
 
+    ## Wątek do monitorowania podłączenia pendrive'a.
     def poll_for_usb(self):
         while True:
             current_drives = self.get_drive_letters()
@@ -110,6 +130,7 @@ class USBKeyApp(tk.Tk):
                 self.after(0, lambda: self.handle_usb_insertion(drive))
             time.sleep(1)
 
+## Funkcja główna aplikacji.
 if __name__ == "__main__":
     app = USBKeyApp()
     app.mainloop()

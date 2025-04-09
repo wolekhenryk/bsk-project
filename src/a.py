@@ -1,3 +1,5 @@
+## @package pdf_signer
+#  Aplikacja do podpisywania plików PDF z użyciem klucza RSA zapisanego na pendrive'ie.
 import os
 import threading
 import time
@@ -10,7 +12,10 @@ from cryptography.hazmat.primitives.asymmetric import padding
 import win32api
 
 
+## @class SignerApp
+#  @brief Aplikacja GUI do podpisywania plików PDF za pomocą klucza RSA.
 class SignerApp(tk.Tk):
+    ## Konstruktor klasy SignerApp.
     def __init__(self):
         super().__init__()
         self.title("PDF Signer")
@@ -23,11 +28,14 @@ class SignerApp(tk.Tk):
 
         threading.Thread(target=self.wait_for_pendrive_with_key, daemon=True).start()
 
+    ## Loguje wiadomość do okna oraz do konsoli.
+    #  @param msg Wiadomość do wyświetlenia.
     def log_message(self, msg):
         self.log.insert(tk.END, msg + "\n")
         self.log.see(tk.END)
         print(msg)
 
+    ## Czeka na podłączenie pendrive'a z zaszyfrowanym kluczem prywatnym.
     def wait_for_pendrive_with_key(self):
         while True:
             drives = win32api.GetLogicalDriveStrings().split('\x00')[:-1]
@@ -39,6 +47,10 @@ class SignerApp(tk.Tk):
                     return
             time.sleep(2)
 
+    ## Odszyfrowuje klucz prywatny RSA z użyciem PIN-u użytkownika.
+    #  @param encrypted_data Szyfrowane dane klucza prywatnego.
+    #  @param pin 4-cyfrowy PIN wprowadzony przez użytkownika.
+    #  @return Odszyfrowane bajty klucza prywatnego.
     def decrypt_private_key(self, encrypted_data, pin):
         iv = encrypted_data[:16]
         ciphertext = encrypted_data[16:]
@@ -46,6 +58,7 @@ class SignerApp(tk.Tk):
         cipher = AES.new(key, AES.MODE_CFB, iv)
         return cipher.decrypt(ciphertext)
 
+    ## Proces odszyfrowania klucza prywatnego i podpisywania pliku PDF.
     def decrypt_flow(self):
         try:
             with open(os.path.join(self.drive, "private_encrypted.pem"), "rb") as f:
@@ -68,6 +81,7 @@ class SignerApp(tk.Tk):
 
         self.after(0, self.prompt_for_pdf)
 
+    ## Otwiera okno dialogowe do wyboru pliku PDF do podpisania.
     def prompt_for_pdf(self):
         file_path = filedialog.askopenfilename(title="Select PDF file to sign", filetypes=[("PDF files", "*.pdf")])
         if not file_path:
@@ -98,6 +112,7 @@ class SignerApp(tk.Tk):
             self.log_message(f"Signing failed: {e}")
 
 
+## @brief Główna funkcja aplikacji.
 if __name__ == "__main__":
     app = SignerApp()
     app.mainloop()
